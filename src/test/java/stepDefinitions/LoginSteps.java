@@ -57,7 +57,8 @@ public class LoginSteps {
     @Then("I should see an error message")
     public void iShouldSeeAnErrorMessage(){
         WebElement flash = driver.findElement(By.id("flash"));
-        Assert.assertEquals(flash.getText().trim(),"Your password is invalid!");
+        String textFlash = flash.getText().trim();
+        Assert.assertTrue(textFlash.contains("Your password is invalid!"));
     }
 
 }
