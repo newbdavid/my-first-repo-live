@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -44,17 +45,19 @@ public class LoginSteps {
     @And("I click on the login button")
     public void iCliCkOnTheLoginButton(){
         driver.findElement(By.cssSelector("button.radius")).click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.tagName("h2")));
+
     }
     @Then("I will see the heading {string}")
     public void iWillSeeTheHeading(String expectedHeading){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.tagName("h2")));
         String actualHeader = driver.findElement(By.tagName("h2")).getText();
         Assert.assertEquals(actualHeader,expectedHeading);
     }
     @Then("I should see an error message")
     public void iShouldSeeAnErrorMessage(){
-
+        WebElement flash = driver.findElement(By.id("flash"));
+        Assert.assertEquals(flash.getText().trim(),"Your password is invalid!");
     }
 
 }
